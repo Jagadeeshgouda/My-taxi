@@ -1,0 +1,150 @@
+{% extends 'Base.html' %}
+{% block content %}
+{% load static %}
+<style>
+  .pet-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .pet-item {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  .pet-id {
+    font-weight: bold;
+  }
+
+  .pet-link {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .pet-image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .pet-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+
+  .pet-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 0;
+  }
+
+  .pet-info {
+    margin-bottom: 5px;
+  }
+
+  .logout-link {
+    display: block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #333;
+  }
+  a.logout-link {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  a.logout-link:hover {
+    background-color: #555;
+  }
+  header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 36px;
+    font-family: 'Arial', sans-serif;
+  }
+
+  /* Navigation Styles */
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
+  nav ul li {
+    margin: 0 15px;
+    display: inline;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  nav ul li a:hover {
+    color: #ffd700; 
+  }
+  
+
+</style>
+<header>
+    <h1>My-Taxi</h1>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><form action="/search1" method="get">
+          <input name="q" type="text" placeholder="search">
+        </form></li>
+      </ul>
+    </nav>
+  </header>
+
+<div class="pet-container">
+  {% for obj in object_list %}
+  <div class="pet-item">
+    <p class="pet-id"></p>
+    <a href="/{{ obj.id }}" class="pet-link">{{ obj.id }}</a>
+    <a href="{% url 'moredetails' obj.id %}" >
+        <img  src="media/{{obj.image}}" alt="" width="200px" height="200px" style="margin-top:100px">
+        </a> 
+    <p class="pet-name">car brand :- {{obj.brand}}</p>
+    <p class="pet-info">car number :- {{obj.car_no}}</p> 
+    <p class="pet-info">car number :- {{obj.car_no}}</p>
+    <p class="pet-info">rental_price :- {{obj.rental_price}}</p>
+    <p class="pet-info">car model :- {{obj.model}}</p>
+    <p class="pet-info">city :- {{obj.city}}</p>
+    <p class="pet-info">car number :- {{obj.car_no}}</p>
+    <p class="pet-info">rental price :- {{obj.rental_price}}</p>
+  </div>
+  {% endfor %}
+</div>
+<footer style="background-color: #333;padding-left:650px;padding-top:20px;padding-bottom:20px;">
+    <p style="color: #fff;">&copy; 2023 My-Taxi. All rights reserved.</p>
+    <a href="https://drive.google.com/file/d/1Klfs4L2zrb_Wue2CcT2IDxlU9IO3bGWf/view?usp=drivesdk">jagadeeshgouda</a>
+  </footer>
+
+{% endblock %}

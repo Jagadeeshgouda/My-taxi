@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet"  type="text/css" media='screen' href="{% static "styles/main.css" %}">
+
+<div id="user" style="margin-left:600px;margin-top:50px">
+<form action="" method = "POST">
+    <h1>Login Page</h1>
+    {% csrf_token %}
+    <div id="formContent">
+        <div class="form-group">
+             <div class="form-group input-group">
+                <div class="input-group-prepend"> 
+            <div class="card bg-light">
+    {% for field in form %}
+    <div style="padding-left:40px;padding-right:40px;padding-top:20px">
+        <p>{{ field.label }}: {{ field }}</p>
+        {% for error in field.errors %}
+        <small style="color:red">{{ error }}</small>
+        {% endfor %}
+    </div>
+
+    {% endfor %}
+
+
+<button id="btn" type='submit' style="margin-left:100px;margin-right:100px;">Submit</button>
+<br><br>
+<a href="/newuser" style="padding-left:30px;padding-bottom:20px"> if you not have account?</a>
+<a href="/changepassword" style="padding-bottom:20px;padding-left:30px"> change password!</a>
+<br>
+
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer style="background-color: #333;padding-left:650px;padding-top:20px;padding-bottom:20px;margin-top:40px">
+    <p style="color: #fff;">&copy; 2023 My-Taxi. All rights reserved.</p>
+    <a href="https://drive.google.com/file/d/1Klfs4L2zrb_Wue2CcT2IDxlU9IO3bGWf/view?usp=drivesdk">jagadeeshgouda</a>
+  </footer>
+{% endblock content %}

@@ -1,0 +1,161 @@
+{% extends 'Base.html' %}
+
+
+
+{% comment %} 
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-ui.theme.css' %}">
+
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    jQuery(document).ready(function($) {
+        var dateFormat = "yy-mm-dd";
+        var today = new Date();
+
+        $("#pickupDate, #deliveryDate").datepicker({
+            dateFormat: dateFormat,
+            minDate: today,
+            onSelect: function(dateText, inst) {
+                var selectedDate = new Date(dateText);
+                var dateType = $(this).attr("id");
+                if (dateType === "pickupDate") {
+                    $("#deliveryDate").datepicker("option", "minDate", selectedDate);
+                } else {
+                    $("#pickupDate").datepicker("option", "maxDate", selectedDate);
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="main">
+    <!-- banner -->
+    <div class="banner">
+        <img src="{% static 'images/heroimage.jpg' %}" class="bannerimage" alt="unexpected error">
+        <div class="form-overlay">
+            <form class="form" method="post" action="">
+                {% csrf_token %}
+                <select id="cityInput" class="input input1" name="city" required>
+                    <option value="" disabled selected>Select a location</option>
+                    <option value="city1">laxmeshwar</option>
+                    <option value="gadag">gadag</option>
+                    <option value="city3">hubbli</option>
+                </select>
+                <input type="Date" placeholder="Pickup Date" class="input" id="pickupDate" name="pick_date" required>
+                <input type="Date" placeholder="Delivery Date" class="input" id="deliveryDate" name="delivery_date" required>
+                <input type="text" placeholder="enter kilo meter" class="input" name="distance_traveled" required>
+                
+                <button type="submit" class="button" id="submitButton">Get Car</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} {% endcomment %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            padding: 20px;
+        }
+    </style>
+    <title>Car Rental Form</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>Car Rental Form</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        
+        
+        <div class="form-group">
+            <label for="car">Car:</label>
+            <select class="form-control" id="car" name="car" required>
+                <!-- Add options dynamically based on your cars -->
+                {% for car in another_model %}
+                    <option value="{{ car.id }}">{{ car.brand }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="pickup_date">Pickup Date:</label>
+            <input type="date" class="form-control" id="pickup_date" name="pickup_date" required
+                   min="{{ current_date }}">
+        </div>
+        
+        
+
+       
+
+        <div class="form-group">
+            <label for="start">Start Location:</label>
+            <input type="text" class="form-control" id="start" name="start" value="bangalore" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="to">Destination City:</label>
+            <select class="form-control" id="to" name="to" required>
+                <!-- Add options dynamically based on your cities -->
+                {% for city in cities %}
+                    <option value="{{ city.id }}">{{ city.city}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="distance_traveled">Distance Traveled (in km):</label>
+            <input type="number" step="0.01" class="form-control" id="distance_traveled" name="distance_traveled" required>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select class="form-control" id="status" name="status">
+                
+                    <option value="Out for delivery">Out for delivery</option>
+                    <option value="Out for delivery">delivery Pending</option>
+                    <option value="Out for delivery">completed</option>
+                
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+<div style="margin-bottom:40px;">
+<footer style="background-color: #333;padding-left:650px;padding-top:20px;padding-bottom:20px;margin-top:40px">
+    <p style="color: #fff;">&copy; 2023 My-Taxi. All rights reserved.</p>
+    <a href="https://drive.google.com/file/d/1Klfs4L2zrb_Wue2CcT2IDxlU9IO3bGWf/view?usp=drivesdk">jagadeeshgouda</a>
+  </footer>
+  <script>
+    // Set the default value to today's date
+    document.getElementById('pickup_date').valueAsDate = new Date();
+
+    // Set the minimum date to today to prevent past dates
+    document.getElementById('pickup_date').min = new Date().toISOString().split('T')[0];
+</script>
+{% endblock %}
+
+
